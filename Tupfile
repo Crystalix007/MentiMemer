@@ -1,2 +1,2 @@
 : foreach *.cpp |> g++ --std=c++17 -Wall -c %f -o %o |> %B.o
-: *.o |> g++ -lPocoFoundation -lPocoNet -lPocoNetSSL -lPocoJSON %f -o %o |> MentiMemer
+: *.o |> g++ -lPocoFoundation -lPocoNet -lPocoNetSSL -lPocoJSON -lpthread -o3 %f -o %o |> MentiMemer
