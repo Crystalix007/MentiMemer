@@ -32,9 +32,9 @@ size_t threadCount = 100;
 
 int main(int argc, char** argv)
 {
-	if (argc != 5)
+	if (argc != 5 && argc != 6)
 	{
-		cout << "Usage: " << argv[0] << " \"gameCode\" \"questionId\" \"questionType\" \"answer\"" << endl;
+		cout << "Usage: " << argv[0] << " \"gameCode\" \"questionId\" \"questionType\" \"answer\" [threadCount]" << endl;
 		return -1;
 	}
 
@@ -42,6 +42,9 @@ int main(int argc, char** argv)
 	question = argv[2];
 	questionType = argv[3];
 	questionAns = argv[4];
+
+	if (argc == 6)
+		threadCount = std::stoul(argv[5]);
 
 	std::vector<std::thread> threads{};
 
