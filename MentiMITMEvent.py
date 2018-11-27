@@ -1,4 +1,6 @@
 from mitmproxy import ctx
+from mitmproxy.http import HTTPResponse
+from mitmproxy.net.http.headers import Headers
 import json
 from subprocess import Popen
 import re
@@ -9,6 +11,7 @@ prettyHost = 'www.menti.com'
 preProtoco = 'https://'
 voteSuffix = '/core/vote'
 prettyURL  = preProtoco + prettyHost + voteSuffix
+stopHost   = '133.7.133.7'
 
 class MentiIntercepter:
     def __init__(self):
@@ -33,6 +36,12 @@ class MentiIntercepter:
                 ctx.log.info("Calling \'" + runExec + "\'")
 
                 self.process = Popen([runExec, quiz, uForm['question'], uForm['question_type'], uForm['vote']], cwd=runDir)
+        elif (flow.request.pretty_host == stopHost):
+            if self.process != None:
+                self.process.terminate()
+                self.process = None
+
+            flow.response = HTTPResponse("HTTP/1.1", 200, "OK", Headers(Content_Type="text/html"), b'<!DOCTYPE html><html><body><big style=\"font-size: 5em\">Stopped auto-send</big></body></html>')
 
 addons = [
     MentiIntercepter()

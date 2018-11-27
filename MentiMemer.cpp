@@ -8,7 +8,6 @@
 #include <Poco/JSON/Parser.h>
 #include <Poco/Dynamic/Var.h>
 #include <iostream>
-//#include <fstream>
 #include <string>
 #include <thread>
 
@@ -28,19 +27,14 @@ std::string question;
 std::string questionType;
 std::string questionAns;
 
-size_t submissionCount = 100;
-size_t threadCount = 100;
+unsigned long long submissionCount = -1u;
+size_t threadCount = 200;
 
 int main(int argc, char** argv)
 {
-	//std::ofstream arguments{ "Arguments.txt" };
-	//for (size_t i = 0; i <= argc; i++)
-	//	arguments << argv[i] << endl;
-	//arguments.close();
-
-	if (argc != 5 && argc != 6)
+	if (argc < 5 || argc > 7)
 	{
-		cout << "Usage: " << argv[0] << " \"gameCode\" \"questionId\" \"questionType\" \"answer\" [threadCount]" << endl;
+		cout << "Usage: " << argv[0] << " \"gameCode\" \"questionId\" \"questionType\" \"answer\" [threadCount] [submission_count_per_thread]" << endl;
 		return -1;
 	}
 
@@ -49,8 +43,10 @@ int main(int argc, char** argv)
 	questionType = argv[3];
 	questionAns = argv[4];
 
-	if (argc == 6)
+	if (argc >= 6)
 		threadCount = std::stoul(argv[5]);
+	if (argc >= 7)
+		submissionCount = std::stoull(argv[6]);
 
 	std::vector<std::thread> threads{};
 
@@ -65,7 +61,7 @@ int main(int argc, char** argv)
 
 void doMultiSubmit()
 {
-	for (size_t i = 0; i < submissionCount; i++)
+	for (unsigned long long i = 0; i < submissionCount; i++)
 		doSubmit();
 }
 
