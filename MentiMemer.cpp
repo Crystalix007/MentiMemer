@@ -8,6 +8,7 @@
 #include <Poco/JSON/Parser.h>
 #include <Poco/Dynamic/Var.h>
 #include <iostream>
+//#include <fstream>
 #include <string>
 #include <thread>
 
@@ -32,6 +33,11 @@ size_t threadCount = 100;
 
 int main(int argc, char** argv)
 {
+	//std::ofstream arguments{ "Arguments.txt" };
+	//for (size_t i = 0; i <= argc; i++)
+	//	arguments << argv[i] << endl;
+	//arguments.close();
+
 	if (argc != 5 && argc != 6)
 	{
 		cout << "Usage: " << argv[0] << " \"gameCode\" \"questionId\" \"questionType\" \"answer\" [threadCount]" << endl;
