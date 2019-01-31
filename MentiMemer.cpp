@@ -121,7 +121,7 @@ bool doSubmit()
 			voteRequest.add("Cookie",       "identifier1=" + id);
 			voteRequest.add("X-Identifier", id);
 
-			std::string voteObjS{ "{\"question\":\"" + question + "\",\"question_type\":\"" + questionType + "\",\"vote\":\"" + questionAns + "\"}"};
+			std::string voteObjS{ "{\"question\":\"" + question + "\",\"question_type\":\"" + questionType + "\",\"vote\":" + questionAns + "}"};
 
 			voteRequest.setContentLength(voteObjS.size());
 

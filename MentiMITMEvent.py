@@ -35,7 +35,7 @@ class MentiIntercepter:
                 
                 ctx.log.info("Calling \'" + runExec + "\'")
 
-                self.process = Popen([runExec, quiz, uForm['question'], uForm['question_type'], uForm['vote']], cwd=runDir)
+                self.process = Popen([runExec, quiz, uForm['question'], uForm['question_type'], json.dumps(uForm['vote'], ensure_ascii=False)], cwd=runDir)
         elif (flow.request.pretty_host == stopHost):
             if self.process != None:
                 self.process.terminate()
